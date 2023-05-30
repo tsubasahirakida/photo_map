@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="~{layout/layout}">
+<th:block layout:fragment="content">
+<div class="flex items-center justify-center p-12">
+    <div class="mx-auto w-full max-w-[550px] bg-white">
+        <p class="text-3xl my-5 font-semibold text-indigo-500 text-center">投稿編集ページ</p>
+        <form th:action="@{/posts/{postId}/edit(postId=${postId})}" class="font-semibold text-gray-600 transition duration-100" enctype="multipart/form-data"  th:object="${postForm}" method="post">
+        <div class="mb-5">
+          <label for="place" class="mb-3 block text-lg">撮影場所</label>
+          <input type="text" name="place" th:value="*{place}" placeholder="住所を入力してください" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md font-semibold text-gray-600 transition duration-100"/>
+          <span th:if="${#fields.hasErrors('place')}" th:errors="*{place}"></span>
+        </div>
+  
+        <div class="mb-6 pt-4">
+            <!-- <label class="mb-5 block text-xl font-semibold text-[#07074D]">Upload File</label>
+            <div class="mb-8">
+                <label for="image_url" class="relative flex h-10 items-center justify-center rounded-md border border-dashed border-[#e0e0e0] p-12 text-center">
+                <div>
+                    <span class="mb-2 block text-xl font-semibold text-[#07074D]">Click</span>
+                    <span class="mb-2 block text-base font-medium text-[#6B7280]">Or</span>
+                    <span class="inline-flex rounded border border-[#e0e0e0] py-2 px-7 text-base font-medium text-[#07074D]">Browse</span>
+                </div>
+                </label>
+                <input type="file" name="image_url" th:field="*{image_url}" class="sr-only" />
+                <span th:if="${#fields.hasErrors('image_url')}" th:errors="*{image_url}"></span>
+            </div> -->
+            <label for="image_url">Upload File</label><br/>
+            <img th:src="${postImage}" alt="postImage">
+            <input type="file" name="image_url" th:field="*{image_url}">
+            <span th:if="${#fields.hasErrors('image_url')}" th:errors="*{image_url}"></span>
+            <!-- <div class="mb-5 rounded-md bg-[#F5F7FB] py-4 px-8">
+                <div class="flex items-center justify-between">
+                    <span class="truncate pr-3 text-base font-medium text-[#07074D]">banner-design.png</span>
+                    <button class="text-[#07074D]">
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.279337 0.279338C0.651787 -0.0931121 1.25565 -0.0931121 1.6281 0.279338L9.72066 8.3719C10.0931 8.74435 10.0931 9.34821 9.72066 9.72066C9.34821 10.0931 8.74435 10.0931 8.3719 9.72066L0.279337 1.6281C-0.0931125 1.25565 -0.0931125 0.651788 0.279337 0.279338Z" fill="currentColor"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.279337 9.72066C-0.0931125 9.34821 -0.0931125 8.74435 0.279337 8.3719L8.3719 0.279338C8.74435 -0.0931127 9.34821 -0.0931123 9.72066 0.279338C10.0931 0.651787 10.0931 1.25565 9.72066 1.6281L1.6281 9.72066C1.25565 10.0931 0.651787 10.0931 0.279337 9.72066Z" fill="currentColor"/>
+                    </svg>
+                    </button>
+                </div>
+            </div> -->
+        </div>
+        <div class="mb-5">
+            <label for="body" class="mb-3 block">文章</label>
+            <textarea name="body" th:text="${postForm.body}" th:field="*{body}" class="h-1/2 w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium outline-none focus:border-[#6A64F1] focus:shadow-md font-semibold text-gray-600 transition duration-100"></textarea>
+            <span th:if="${#fields.hasErrors('body')}" th:errors="*{body}"></span>
+        </div>
+        <div>
+            <button class="hover:shadow-form w-full rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">
+                Send File
+            </button>
+            <input type="hidden" name="postId" th:value="${postId}">
+            <input type="hidden" name="postImage" th:value="${postImage}">
+        </div>
+        </form>
+    </div>
+</div>
+</html>

@@ -1,0 +1,35 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="~{layout/layout}">
+<th:block layout:fragment="content">
+      <div class="bg-gray-100 items-center py-10">
+        <p class="text-3xl my-5 font-semibold text-indigo-500 text-center mb-5">会員登録ページ</p>
+        <div class="container mx-auto max-w-md shadow-md hover:shadow-lg transition duration-300">
+          <div class="py-12 p-10 bg-white rounded-xl font-semibold text-gray-600 transition duration-100">
+          <p th:if="${param.error}" class="error">
+            会員登録できませんでした。
+          </p>
+          <form method="POST" th:action="@{/users/new}" th:object="${userForm}">
+            <div>
+                <label class="mr-4 text-gray-700 font-bold inline-block mb-2" for="name">Name</label>
+                <input type="text" class="border bg-gray-100 py-2 px-4 w-96 outline-none focus:ring-2 focus:ring-indigo-400 rounded" placeholder="ユーザネーム" th:field="*{name}">
+                <span class="error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>
+            </div>
+            <div>
+                <label class="mr-4 text-gray-700 font-bold inline-block mb-2" for="email">Email</label>
+                <input type="text"  class="border bg-gray-100 py-2 px-4 w-96 outline-none focus:ring-2 focus:ring-indigo-400 rounded"  placeholder="@Email" th:field="*{email}">
+                <span class="error-message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Mail Error</span>
+            </div>
+            <div>
+                <label class="mr-4 text-gray-700 font-bold inline-block mb-2" for="name">Password</label>
+                <input type="password"  class="border bg-gray-100 py-2 px-4 w-96 outline-none focus:ring-2 focus:ring-indigo-400 rounded" placeholder="パスワード" th:field="*{password}">
+                <span class="error-message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password Error</span>
+            </div>
+            <button class="w-full mt-6 text-indigo-50 font-bold bg-indigo-600 py-3 rounded-md hover:bg-indigo-500 transition duration-300">ユーザー登録</button>
+          </form>
+          <a href="/login" class="flex justify-center font-semibold text-gray-600 transition duration-100">ログインページはこちらから</a>
+          </div>
+        </div>
+    </div>
+</th:block>
+</html>

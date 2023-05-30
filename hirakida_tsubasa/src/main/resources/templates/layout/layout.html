@@ -1,0 +1,33 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<th:block th:replace="~{fragments/config :: config}"></th:block>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.6/dist/full.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300&family=Pangolin&family=Rampart+One&family=Roboto+Condensed&display=swap" rel="stylesheet">
+
+<style>
+.font {
+	font-family: 'Rampart One', cursive;
+}
+</style>
+
+<body>
+	<div>
+		<div class="w-full">
+			<div class="font">
+				<th:block th:replace="~{fragments/header :: header}"></th:block>
+			</div>
+			<div class="font">
+				<th:block layout:fragment="content"></th:block>
+			</div>
+			<th:block th:replace="~{fragments/footer :: footer}"></th:block>
+		</div>
+	</div>
+</body>
+
+</html>

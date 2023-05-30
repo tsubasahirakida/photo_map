@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="~{layout/layout}">
+<th:block layout:fragment="content">
+    <div class="bg-gray-100 items-center py-10">
+        <p class="text-3xl my-5 font-semibold text-indigo-500 text-center mb-5">ログインページ</p>
+        <div class="container mx-auto max-w-md shadow-md hover:shadow-lg transition duration-300">
+          <div class="py-12 p-10 bg-white rounded-xl font-semibold text-gray-600 transition duration-100">
+          <p th:if="${param.error}" class="error">
+            ログインできませんでした。
+          </p>
+          <form method="post" th:action="@{/login}">
+            <div>
+                <label class="mr-4 text-gray-700 font-bold inline-block mb-2" for="username">Email</label>
+                <input type="text" name="username" class="border bg-gray-100 py-2 px-4 w-96 outline-none focus:ring-2 focus:ring-indigo-400 rounded" placeholder="@Email">
+            </div>
+            <div>
+                <label class="mr-4 text-gray-700 font-bold inline-block mb-2" for="password">Password</label>
+                <input type="password" name="password" class="border bg-gray-100 py-2 px-4 w-96 outline-none focus:ring-2 focus:ring-indigo-400 rounded" placeholder="パスワード">
+            </div>
+            <button class="w-full mt-6 text-indigo-50 font-bold bg-indigo-600 py-3 rounded-md hover:bg-indigo-500 transition duration-300">ログイン</button>
+          </form>
+          <a href="/users/new" class="flex justify-center mt-3 font-semibold text-gray-600 transition duration-100">会員登録はこちらから</a>
+          </div>
+        </div>
+    </div>
+</th:block>
+</html>

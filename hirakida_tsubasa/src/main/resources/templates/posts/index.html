@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorator="~{layout/layout}">
+
+<th:block layout:fragment="content">
+
+  <section class="flex flex-col items-center">
+    <p class="text-3xl my-5 font-semibold text-indigo-500">タイムライン</p>
+		<div th:each="post : ${postList}" class="flex flex-col items-center h-3/4 w-2/5 rounded-md border border-purple-300 shadow-3xl my-3 font-semibold text-gray-600 transition duration-100">
+      <div class="flex w-full flex-col gap-2.5 sm:flex-row mt-3 mb-1">
+        <div class="flex ml-16">
+          <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+				    <div class="w-20 rounded-full">
+					    <img src="/images/デフォルトユーザー画像.png" />
+				    </div>
+				  </label>
+        </div>
+        <p th:text="${post.userName}" class="flex text-xl opacity-80 my-2"></p>
+        <div class="flex ml-auto mr-16">
+        <a th:href="@{/posts/{id}(id=${post.id})}" class="fa-solid fa-eye flex text-2xl opacity-80 my-2"></a>
+        <div th:if="${post.user_id == userId}" class="flex">
+          <div class="dropdown dropdown-end">
+            <label tabindex="0" class="btn btn-ghost btn-circle text-2xl">
+              <i class="fa-solid fa-bars"></i>
+            </label>
+            <ul class="shadow menu menu-compact dropdown-content bg-base-300 rounded-box w-40 z-50">
+                <li>
+                  <a th:href="@{/posts/{id}/edit(id=${post.id})}" th:text="編集する" class="justify-between text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700"></a>
+                </li>
+                <li>
+                  <form th:action="@{/posts/{id}/delete(id=${post.id})}" method="post" class="justify-between text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700">
+                    <input type="submit" value="削除する" />
+                  </form>
+                </li>
+            </ul>
+          </div>
+          </div>
+            <div sec:authorize="authenticated" class="text-2xl text-pink-300 opacity-50 my-2 ml-1">
+              <th:block th:unless="${myLikes.contains(post.id) == true}">
+                <th:block th:replace="~{heart/like :: like}"></th:block>
+              </th:block>
+              <th:block th:if="${myLikes.contains(post.id) == true}">
+                <th:block th:replace="~{heart/unlike :: unlike}"></th:block>
+              </th:block>
+            </div>
+        </div>
+			</div>
+      <img th:src="${post.image_url}" alt="PostImage" width="550" height="427"/>
+      <div class="flex mr-auto ml-20 my-3">
+        <i class="fa-sharp fa-solid fa-map-location-dot text-2xl"></i>
+        <a th:href="@{https://www.google.com/maps/search/?api=1&query={place}(place=${post.place})}" target="_blank"><p th:text="${post.place}" class="text-2xl ml-2 underline hover:text-indigo-500"></p></a>
+      </div>
+      <div class="flex">
+        
+      </div>
+      <div class="flex mr-auto ml-20 mb-3">
+        <h2 class="text-2xl" th:text="${post.body}"></h2>
+      </div>
+		</div>
+	</section>
+</th:block>
+</html>
